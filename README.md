@@ -8,7 +8,12 @@ We are building a browser-based Snake game where the user controls a
 snake to eat food and increase score, while avoiding collisions.
 
 ------------------------------------------------------------------------
-
+## Tools
+- Javascript
+- HTML5 Canvas
+- Frontend Frameworks(like Bootstrap 5 and Phaser)
+- Python Flask(with standard libraries)
+- Bash 
 ## Features
 
 -   Snake movement using arrow keys
