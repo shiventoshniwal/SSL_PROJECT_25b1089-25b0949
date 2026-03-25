@@ -68,4 +68,4 @@ gameplay.
 ## Team
 
 -   Shiven Toshniwal (25B1089)
--   Rishabh Iyer (25B0979)
+-   Rishabh Iyer (25B0949)
