@@ -7,7 +7,11 @@ const Game = {
     direction: { x: 1, y: 0 },
     score: 1,
     startTime: null,
-    food: null,
+
+    // changed from single food → multiple foods
+    foods: [],
+    foodSpawner: null,
+
     isImmune: false,
     immunityTimer: null,
     interval: null,
@@ -21,7 +25,12 @@ const Game = {
         if (this.immunityTimer) clearTimeout(this.immunityTimer);
         this.startTime = Date.now();
 
-        this.spawnFood();
+        this.foods = [];
+
+        // spawn food every 5 seconds
+        if (this.foodSpawner) clearInterval(this.foodSpawner);
+        this.foodSpawner = setInterval(() => this.spawnFood(), 5000);
+
         window.onkeydown = (e) => this.handleInput(e);
 
         if (this.interval) clearInterval(this.interval);
@@ -34,8 +43,27 @@ const Game = {
             { name: "Pumpkin Pie", color: "brown", val: 3 },
             { name: "Golden Apple", color: "gold", val: 0, immune: true }
         ];
-        const t = types[Math.floor(Math.random() * types.length)];
-        this.food = { x: Math.floor(Math.random()*20), y: Math.floor(Math.random()*20), ...t };
+
+        let newFood;
+        let valid = false;
+
+        while (!valid) {
+            newFood = { 
+                x: Math.floor(Math.random()*20), 
+                y: Math.floor(Math.random()*20), 
+                ...types[Math.floor(Math.random() * types.length)] 
+            };
+
+            // ensure not on snake
+            const onSnake = this.snake.some(s => s.x === newFood.x && s.y === newFood.y);
+
+            // ensure not on another food
+            const onFood = this.foods.some(f => f.x === newFood.x && f.y === newFood.y);
+
+            if (!onSnake && !onFood) valid = true;
+        }
+
+        this.foods.push(newFood);
     },
 
     loop() {
@@ -55,22 +83,30 @@ const Game = {
 
         this.snake.unshift(head);
 
-        // 2. Food Logic
-        if (head.x === this.food.x && head.y === this.food.y) {
-            if (this.food.immune) {
+        // food collision (multiple foods)
+        const foodIndex = this.foods.findIndex(f => f.x === head.x && f.y === head.y);
+
+        if (foodIndex !== -1) {
+            const food = this.foods[foodIndex];
+
+            if (food.immune) {
                 this.snake.pop(); // Golden Apple: No length increase
                 this.startImmunity();
             } else {
                 // Growth: Carrot (+1) or Pie (+3)
-                for (let i = 1; i < this.food.val; i++) {
+                for (let i = 1; i < food.val; i++) {
                     this.snake.push({ ...this.snake[this.snake.length - 1] });
                 }
                 this.score = this.snake.length;
             }
-            this.spawnFood();
+
+            // remove eaten food
+            this.foods.splice(foodIndex, 1);
+
         } else {
             this.snake.pop(); // Normal movement
         }
+
         this.draw();
     },
 
@@ -83,9 +119,13 @@ const Game = {
     draw() {
         this.ctx.fillStyle = "black";
         this.ctx.fillRect(0, 0, 400, 400);
-        // Draw Food
-        this.ctx.fillStyle = this.food.color;
-        this.ctx.fillRect(this.food.x * 20, this.food.y * 20, 18, 18);
+
+        // draw all foods
+        this.foods.forEach(f => {
+            this.ctx.fillStyle = f.color;
+            this.ctx.fillRect(f.x * 20, f.y * 20, 18, 18);
+        });
+
         // Draw Snake (Cyan if immune, Lime if normal)
         this.ctx.fillStyle = this.isImmune ? "cyan" : "lime";
         this.snake.forEach(s => this.ctx.fillRect(s.x * 20, s.y * 20, 18, 18));
@@ -101,9 +141,12 @@ const Game = {
 
     endGame(cause) {
         clearInterval(this.interval);
+        clearInterval(this.foodSpawner); // important
+
         const duration = Math.floor((Date.now() - this.startTime) / 1000);
         UI.showGameOver(this.score, cause, duration);
-        // Automatically send score to Flask server 
+
+        // Automatically send score to Flask server
         API.saveScore({ name: window.playerName, score: this.score, cause: cause, duration: duration });
     }
 };
