@@ -1,6 +1,6 @@
-/* Professional dark theme aesthetic */
+
 body {
-    background-color: #000000; /* Pure black for contrast */
+    background-color:Green;
     color: #ffffff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
@@ -15,18 +15,27 @@ h1 {
     margin-top: 20px;
 }
 
-/* Modal Fix: Ensure text is black/dark so it's visible against white modal backgrounds */
 .modal-content {
-    background-color: #ffffff !important;
+    background-color: Aquamarine;
     color: #000000 !important;
 }
-
+.welcome{
+ font-family:Monaco;
+}
 .modal-body, .modal-header, .modal-footer {
     color: #000000 !important;
 }
-
+.carrot{
+    color:DarkOrange;
+}
+.pie{
+    color:Chocolate;
+}
+.apple{
+    color:GoldenRod;
+}
 #gameCanvas {
-    background-color: #000;
-    border: 3px solid #00ff88;
+    background-color: GreenYellow;
+    border: 10px solid Peru;
     box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
 }
