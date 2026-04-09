@@ -27,9 +27,8 @@ const Game = {
 
         this.foods = [];
 
-        // spawn food every 5 seconds
-        if (this.foodSpawner) clearInterval(this.foodSpawner);
-        this.foodSpawner = setInterval(() => this.spawnFood(), 5000);
+        // spawn initial food (instead of every 5 sec)
+        this.spawnFood();
 
         window.onkeydown = (e) => this.handleInput(e);
 
@@ -48,10 +47,10 @@ const Game = {
         let valid = false;
 
         while (!valid) {
-            newFood = { 
-                x: Math.floor(Math.random()*20), 
-                y: Math.floor(Math.random()*20), 
-                ...types[Math.floor(Math.random() * types.length)] 
+            newFood = {
+                x: Math.floor(Math.random()*20),
+                y: Math.floor(Math.random()*20),
+                ...types[Math.floor(Math.random() * types.length)]
             };
 
             // ensure not on snake
@@ -103,6 +102,9 @@ const Game = {
             // remove eaten food
             this.foods.splice(foodIndex, 1);
 
+            // spawn new food immediately
+            this.spawnFood();
+
         } else {
             this.snake.pop(); // Normal movement
         }
@@ -141,7 +143,7 @@ const Game = {
 
     endGame(cause) {
         clearInterval(this.interval);
-        clearInterval(this.foodSpawner); // important
+        // clearInterval(this.foodSpawner); // removed
 
         const duration = Math.floor((Date.now() - this.startTime) / 1000);
         UI.showGameOver(this.score, cause, duration);
