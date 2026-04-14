@@ -1,8 +1,8 @@
 const Game = {
     canvas: document.getElementById('gameCanvas'),
     ctx: document.getElementById('gameCanvas').getContext('2d'),
-    gridSize: 20,
-    tileCount: 20,
+    gridSize: 30,
+    tileCount: 30,
     snake: [],
     direction: { x: 1, y: 0 },
     score: 1,
@@ -18,7 +18,7 @@ const Game = {
     speed: 150, // Reduced speed for better playability
 
     init() {
-        this.snake = [{ x: 10, y: 10 }];
+        this.snake = [{ x: 15, y: 15 }];
         this.direction = { x: 1, y: 0 };
         this.score = 1; // Score = Length
         this.isImmune = false;
@@ -48,8 +48,8 @@ const Game = {
 
         while (!valid) {
             newFood = {
-                x: Math.floor(Math.random()*20),
-                y: Math.floor(Math.random()*20),
+                x: Math.floor(Math.random()*30),
+                y: Math.floor(Math.random()*30),
                 ...types[Math.floor(Math.random() * types.length)]
             };
 
@@ -71,13 +71,13 @@ const Game = {
         // 1. Collision Logic
         if (!this.isImmune) {
             // Check Walls
-            if (head.x < 0 || head.x >= 20 || head.y < 0 || head.y >= 20) return this.endGame("WALL");
+            if (head.x < 0 || head.x >= 30 || head.y < 0 || head.y >= 30) return this.endGame("WALL");
             // Check Self
             if (this.snake.some(s => s.x === head.x && s.y === head.y)) return this.endGame("SELF");
         } else {
             // Wrapping logic while immune
-            if (head.x < 0) head.x = 19; if (head.x > 19) head.x = 0;
-            if (head.y < 0) head.y = 19; if (head.y > 19) head.y = 0;
+            if (head.x < 0) head.x = 29; if (head.x > 29) head.x = 0;
+            if (head.y < 0) head.y = 29; if (head.y > 29) head.y = 0;
         }
 
         this.snake.unshift(head);
@@ -120,17 +120,17 @@ const Game = {
 
     draw() {
         this.ctx.fillStyle = "black";
-        this.ctx.fillRect(0, 0, 400, 400);
+        this.ctx.fillRect(0, 0, 900, 900);
 
         // draw all foods
         this.foods.forEach(f => {
             this.ctx.fillStyle = f.color;
-            this.ctx.fillRect(f.x * 20, f.y * 20, 18, 18);
+            this.ctx.fillRect(f.x * 30, f.y * 30, 28, 28);
         });
 
         // Draw Snake (Cyan if immune, Lime if normal)
         this.ctx.fillStyle = this.isImmune ? "cyan" : "lime";
-        this.snake.forEach(s => this.ctx.fillRect(s.x * 20, s.y * 20, 18, 18));
+        this.snake.forEach(s => this.ctx.fillRect(s.x * 30, s.y * 30, 28, 28));
     },
 
     handleInput(e) {
