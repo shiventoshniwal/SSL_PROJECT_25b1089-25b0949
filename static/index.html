@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <div class="container text-center">
-        <h1 class="my-4">Snake Stack</h1>
-        <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+    <div class="game-wrapper">
+        <h1>Snake Stack</h1>
+        <canvas id="gameCanvas" width="900" height="900"></canvas>
     </div>
 
     <div class="modal fade" id="startModal" data-bs-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header"><h5 class="welcome">Welcome to Snake Stack</h5></div>
+                <div class="modal-header">
+                    <h5 class="welcome">Welcome to Snake Stack</h5>
+                </div>
                 <div class="modal-body">
                     <p><strong>Rules:</strong> Use Arrow keys or WASD to move.</p>
                     <ul>
@@ -35,11 +38,14 @@
     <div class="modal fade" id="gameOverModal" data-bs-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header"><h5 class="text-danger">Game Over</h5></div>
-                <div id="gameOverBody" class="modal-body">
-                    </div>
+                <div class="modal-header">
+                    <h5 class="text-danger">Game Over</h5>
+                </div>
+                <div id="gameOverBody" class="modal-body"></div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" onclick="UI.gameOverModal.hide(); Game.init();">Play Again</button>
+                    <button class="btn btn-primary" onclick="UI.gameOverModal.hide(); Game.init();">
+                        Play Again
+                    </button>
                 </div>
             </div>
         </div>
@@ -49,5 +55,6 @@
     <script src="/static/api.js"></script>
     <script src="/static/ui.js"></script>
     <script src="/static/game.js"></script>
+
 </body>
 </html>
