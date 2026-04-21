@@ -55,7 +55,25 @@ gameplay.
     -   Self
 
 ------------------------------------------------------------------------
+## history.txt entries format
+['timestamp'] 'name' | 'score' 'cause' 'duration'
 
+(one entry per line)
+
+## Running game on server
+Type 'python3 app.py' on command line
+Navigate to http://127.0.0.1:5000 on browser
+Enter username and press Start Game
+Can use arrow keys or WASD for snake motion
+Press Play Again to restart if game over
+
+## Running admin.sh
+Type 'bash admin.sh' on command line
+Navigate menu by entering number corresponding to required option
+Where valid, enter required suboptions out of those visible 
+Press 'q' to exit display of file.
+
+------------------------------------------------------------------------
 ## Notes
 
 -   If Phaser is used, initial time will be spent learning basics
