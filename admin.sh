@@ -8,6 +8,11 @@ if [ ! -f "$FILE" ]; then
     echo "Error: $FILE does not exist."
     exit 1
 fi
+#Check if file empty
+if [[ $(grep -Ev "^$" "$FILE"|wc -l) -eq 0 ]];then
+    echo "history.txt is empty"
+    exit 0
+fi    
 
 while true; do
     echo -e "\n--- SNAKE STACK ADMIN MENU ---"
@@ -32,22 +37,32 @@ while true; do
                 sum_score += stats[1];
                 sum_time += stats[3];
                 count++;
-                if(stats[2] == "WALL") wall_deaths++;
+                if(stats[2] == "WALL"){ wall_deaths++;}
+                else { self_deaths++; }
             } END {
                 if(count > 0)
-                    printf "Mean Score: %.2f\nMean Time: %.2f s\nWall Death Fraction: %.2f\n", sum_score/count, sum_time/count, wall_deaths/count;
+                    printf "Mean Score: %.2f\nMean Time: %.2f s\nWall Death Fraction: %.2f\nSelf Death Fraction: %.2f\n", sum_score/count, sum_time/count, wall_deaths/count, self_deaths/count;
                 else print "No data available.";
             }' "$FILE"
             ;;
         3)
             # Delete using sed with confirmation
             read -p "Enter username to delete: " uname
+            if [[ $(grep -E $uname "$FILE"|wc -l) -eq 0 ]]; then
+            echo "Invalid username"
+            else
             read -p "Are you sure? (y/n): " confirm
             if [ "$confirm" == "y" ]; then
-                sed -i "/|.*$uname/!{/\<$uname\>/d}" "$FILE" # Precise matching
-                echo "Entries for $uname deleted."
+            sed "/ ${uname} /d" "$FILE">temp.txt
+            cp temp.txt "$FILE"
+            rm -r temp.txt
+            echo "Entries for $uname deleted."
+            elif [ "$confirm" != "n" ]; then
+            echo "invalid option"
+            fi
             fi
             ;;
+
         4)
             # Log rotation using tar and tail
             TIMESTAMP=$(date +%Y%m%d_%H%M%S)
@@ -55,9 +70,15 @@ while true; do
             tail -n 10 "$FILE" > temp.txt && mv temp.txt "$FILE"
             echo "Rotation complete. Backup created and file truncated to last 10 entries."
             ;;
-        5)
-            # Sort by score (the second field)
-            sort -t'|' -k2 -rn "$FILE" | less
+        5)  # Sort by username or score
+            read -p "Sort by username(u) or by score(s)?" x
+            if [ "$x" == "s" ]; then
+            sort -t '|' -k 2  -rn "$FILE" | less
+            elif [ "$x" == "u" ];then
+            sort -t ']' -k 2  "$FILE" | less
+            else
+            echo "Invalid option"
+            fi
             ;;
         6)
             exit 0
