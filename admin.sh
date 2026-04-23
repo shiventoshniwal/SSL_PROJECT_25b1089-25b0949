@@ -53,7 +53,7 @@ while true; do
             else
             read -p "Are you sure? (y/n): " confirm
             if [ "$confirm" == "y" ]; then
-            sed "/ ${uname} /d" "$FILE">temp.txt
+            sed "/] ${uname} |/d" "$FILE">temp.txt
             cp temp.txt "$FILE"
             rm -r temp.txt
             echo "Entries for $uname deleted."
