@@ -25,7 +25,8 @@ const Game = {
         this.direction = { x: 1, y: 0 };
         this.score = 1;
         this.isImmune = false;
-
+        
+        //clear existing timer
         if (this.immunityTimer) clearTimeout(this.immunityTimer);
         this.startTime = Date.now();
 
@@ -34,6 +35,7 @@ const Game = {
 
         window.onkeydown = (e) => this.handleInput(e);
 
+        //repeat code in loop() every 200ms
         if (this.interval) clearInterval(this.interval);
         this.interval = setInterval(() => this.loop(), this.speed);
 
@@ -49,7 +51,8 @@ const Game = {
 
         let newFood;
         let valid = false;
-
+        //checking whether valid (non-overlapping) food exists 
+        // ... expands to elements of iterable so this chooses any one food at random
         while (!valid) {
             newFood = {
                 x: Math.floor(Math.random() * this.tileCount),
@@ -57,6 +60,7 @@ const Game = {
                 ...types[Math.floor(Math.random() * types.length)]
             };
 
+        // .some for checking if at least one array element satisfies condition
             const onSnake = this.snake.some(
                 s => s.x === newFood.x && s.y === newFood.y
             );
@@ -92,6 +96,7 @@ const Game = {
             if (head.y >= this.tileCount) head.y = 0;
         }
 
+        //adding new position of head to snake array
         this.snake.unshift(head);
 
         const foodIndex = this.foods.findIndex(
@@ -104,7 +109,10 @@ const Game = {
             if (food.immune) {
                 this.snake.pop();
                 this.startImmunity();
-            } else {
+            } 
+            //Add copies of last 'food.val' number of elements in snake array. 
+            //Increase in length becomes visible when snake moves as the original copies of those elements are still there.
+            else {
                 for (let i = 1; i < food.val; i++) {
                     this.snake.push({
                         ...this.snake[this.snake.length - 1]
@@ -113,7 +121,7 @@ const Game = {
 
                 this.score = this.snake.length;
             }
-
+            //remove food if eaten
             this.foods.splice(foodIndex, 1);
             this.spawnFood();
 
@@ -181,7 +189,7 @@ const Game = {
 
     handleInput(e) {
         const key = e.key;
-
+        //origin at top left corner, y coordinate increases downwards
         if ((key === 'w' || key === 'W' || key === 'ArrowUp') && this.direction.y === 0)
             this.direction = { x: 0, y: -1 };
 
