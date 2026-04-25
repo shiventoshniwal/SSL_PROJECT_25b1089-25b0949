@@ -5,17 +5,17 @@ FILE="history.txt"
 
 # Check if file exists
 if [ ! -f "$FILE" ]; then
-    echo "Error: $FILE does not exist."
+    echo -e "\033[1mError: $FILE does not exist.\033[0m"
     exit 1
 fi
 #Check if file empty
 if [[ $(grep -Ev "^$" "$FILE"|wc -l) -eq 0 ]];then
-    echo "history.txt is empty"
+    echo -e "\033[1mhistory.txt is empty\033[0m"
     exit 0
 fi    
 
 while true; do
-    echo -e "\n--- SNAKE STACK ADMIN MENU ---"
+    echo -e "\n\033[32;4m--- SNAKE STACK ADMIN MENU ---\033[0m"
     echo "1) View Recent Games (Paginated)"
     echo "2) View Analytics (Mean Score/Time)"
     echo "3) Delete Entries (by Username)"
@@ -26,8 +26,13 @@ while true; do
 
     case $choice in
         1)
-            # Paginated view using less
-            cat "$FILE" | less
+            while read -r line; do
+            if [[ $(echo "$line"|grep -E "WALL [0-9]+$"|wc -l) -eq 0 ]];then
+            echo -e "\033[31m${line}\033[0m\n"
+            else
+            echo -e "\033[34m${line}\033[0m\n"
+            fi
+            done< "$FILE"
             ;;
         2)
             # Analytics using awk
@@ -48,8 +53,8 @@ while true; do
         3)
             # Delete using sed with confirmation
             read -p "Enter username to delete: " uname
-            if [[ $(grep -E $uname "$FILE"|wc -l) -eq 0 ]]; then
-            echo "Invalid username"
+            if [[ $(cut -d "|" -f1 "$FILE"|grep -E $uname|wc -l) -eq 0 ]]; then
+            echo -e "\033[1mInvalid username\033[0m"
             else
             read -p "Are you sure? (y/n): " confirm
             if [ "$confirm" == "y" ]; then
@@ -58,7 +63,7 @@ while true; do
             rm -r temp.txt
             echo "Entries for $uname deleted."
             elif [ "$confirm" != "n" ]; then
-            echo "invalid option"
+            echo -e "\033[1minvalid option\033[0m"
             fi
             fi
             ;;
@@ -77,14 +82,14 @@ while true; do
             elif [ "$x" == "u" ];then
             sort -t ']' -k 2  "$FILE" | less
             else
-            echo "Invalid option"
+            echo -e "\033[1mInvalid option\033[0m"
             fi
             ;;
         6)
             exit 0
             ;;
         *)
-            echo "Invalid choice."
+            echo -e "\033[1mInvalid choice.\033[0m"
             ;;
     esac
 done
