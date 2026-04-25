@@ -71,7 +71,6 @@ Press Play Again to restart if game over
 Type 'bash admin.sh' on command line
 Navigate menu by entering number corresponding to required option
 Where valid, enter required suboptions out of those visible 
-Press 'q' to exit display of file.
 
 ------------------------------------------------------------------------
 ## Notes
