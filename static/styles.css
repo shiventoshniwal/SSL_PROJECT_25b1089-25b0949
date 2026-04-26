@@ -57,6 +57,14 @@ h1 {
     color: goldenrod;
 }
 
+.power{
+    color:blue;
+}
+
+.super{
+    color:purple;
+}
+
 #gameCanvas {
     width: min(90vw, 80vh);
     height: min(90vw, 80vh);
