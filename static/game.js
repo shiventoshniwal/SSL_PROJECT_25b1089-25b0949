@@ -11,6 +11,7 @@ const Game = {
     foods: [],
     foodSpawner: null,
 
+    speedInterval:null,
     isImmune: false,
     immunityTimer: null,
     interval: null,
@@ -34,7 +35,7 @@ const Game = {
         this.spawnFood();
 
         window.onkeydown = (e) => this.handleInput(e);
-
+        if (this.speedInterval) clearInterval(this.speedInterval);
         //repeat code in loop() every 200ms
         if (this.interval) clearInterval(this.interval);
         this.interval = setInterval(() => this.loop(), this.speed);
@@ -46,7 +47,9 @@ const Game = {
         const types = [
             { name: "Carrot", color: "orange", val: 1 },
             { name: "Pumpkin Pie", color: "brown", val: 3 },
-            { name: "Golden Apple", color: "gold", val: 0, immune: true }
+            { name: "Golden Apple", color: "gold", val: 0, immune: true },
+            { name: "Power Fruit", color: "blue", val:0, fast:true},
+            { name: "Super Power Fruit", color:"purple", val:0, immune:true, fast:true}
         ];
 
         let newFood;
@@ -106,6 +109,9 @@ const Game = {
         if (foodIndex !== -1) {
             const food = this.foods[foodIndex];
 
+            if(food.fast){
+                this.speedUp();
+            }
             if (food.immune) {
                 this.snake.pop();
                 this.startImmunity();
@@ -130,6 +136,16 @@ const Game = {
         }
 
         this.draw();
+    },
+
+    speedUp(){
+        if(this.interval) clearInterval(this.interval);
+        if(this.speedInterval) clearInterval(this.speedInterval);
+        this.speed=175;
+        this.speedInterval=setInterval(() => this.loop(),this.speed);
+        setTimeout(() => {
+             this.isImmune = false;
+        }, 10000);
     },
 
     startImmunity() {
@@ -205,7 +221,7 @@ const Game = {
 
     endGame(cause) {
         clearInterval(this.interval);
-
+        clearInterval(this.speedInterval);
         const duration = Math.floor(
             (Date.now() - this.startTime) / 1000
         );
