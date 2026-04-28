@@ -108,8 +108,10 @@ const Game = {
 
         if (foodIndex !== -1) {
             const food = this.foods[foodIndex];
+	    if(food.fast && !(food.immune)){
+		this.snake.pop();}
 
-            if(food.fast){
+            if(food.fast){   
                 this.speedUp();
             }
             if (food.immune) {
