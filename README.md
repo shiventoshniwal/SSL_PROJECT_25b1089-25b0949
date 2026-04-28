@@ -75,7 +75,6 @@ Where valid, enter required suboptions out of those visible
 ------------------------------------------------------------------------
 ## Notes
 
--   If Phaser is used, initial time will be spent learning basics
 -   Focus will be on keeping implementation simple and modular
 -   The design is kept simple initially, with scope for extensions like
     difficulty scaling and multiple food types
