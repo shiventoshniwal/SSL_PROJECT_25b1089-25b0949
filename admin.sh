@@ -25,7 +25,7 @@ while true; do
     read -p "Select an option: " choice
 
     case $choice in
-        1)
+        1)  #colored output
             while read -r line; do
             if [[ $(echo "$line"|grep -E "WALL [0-9]+$"|wc -l) -eq 0 ]];then
             echo -e "\033[31m${line}\033[0m\n"
@@ -78,12 +78,20 @@ while true; do
         5)  # Sort by username or score
             read -p "Sort by username(u) or by score(s)?" x
             if [ "$x" == "s" ]; then
-            sort -t '|' -k 2  -rn "$FILE" | less
+            sort -t '|' -k 2  -rn "$FILE" > temp.txt
             elif [ "$x" == "u" ];then
-            sort -t ']' -k 2  "$FILE" | less
+            sort -t ']' -k 2  "$FILE" > temp.txt
             else
             echo -e "\033[1mInvalid option\033[0m"
             fi
+            #colored output
+            while read -r line; do
+            if [[ $(echo "$line"|grep -E "WALL [0-9]+$"|wc -l) -eq 0 ]];then
+            echo -e "\033[31m${line}\033[0m\n"
+            else
+            echo -e "\033[34m${line}\033[0m\n"
+            fi
+            done< temp.txt
             ;;
         6)
             exit 0
