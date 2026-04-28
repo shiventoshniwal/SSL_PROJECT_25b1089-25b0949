@@ -1,2 +1,10 @@
 history.txt
 *.tar.gz
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.lof
+*.lot
