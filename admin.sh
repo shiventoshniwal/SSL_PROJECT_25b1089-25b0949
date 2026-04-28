@@ -20,7 +20,7 @@ while true; do
     echo "2) View Analytics (Mean Score/Time)"
     echo "3) Delete Entries (by Username)"
     echo "4) Log Rotation (Backup & Keep Last 10)"
-    echo "5) View Sorted (by Score)"
+    echo "5) View Sorted (by Score or by Username)"
     echo "6) Exit"
     read -p "Select an option: " choice
 
@@ -92,6 +92,7 @@ while true; do
             echo -e "\033[34m${line}\033[0m\n"
             fi
             done< temp.txt
+	    rm temp.txt
             ;;
         6)
             exit 0
