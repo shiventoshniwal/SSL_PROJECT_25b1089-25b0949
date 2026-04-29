@@ -146,8 +146,10 @@ const Game = {
         this.speed=175;
         this.speedInterval=setInterval(() => this.loop(),this.speed);
         setTimeout(() => {
-             this.isImmune = false;
+        clearInterval(this.speedInterval);     
         }, 10000);
+		this.speed=200;
+		this.interval=setInterval(()=> this.loop(),this.speed);
     },
 
     startImmunity() {
