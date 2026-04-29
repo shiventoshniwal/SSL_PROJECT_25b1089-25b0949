@@ -33,12 +33,12 @@
 \section{External libraries used with purpose}
 
 \begin{itemize}[leftmargin=1.5em]
-    \item Bootstrap 5 front end framework - For Styling \cite{Bootstrap}
-    \item Math.random - For random generation of food items on the grid \cite{Math1}
-    \item Math.floor - For random selection of coordinates as well as random selection of fruits \cite{Math2}
-    \item Flask - Provides web server and routing capabilities \cite{Flask1} \cite{Flask2}
-    \item datetime - Formats dates for the history.txt log
-    \item os - Handles directory paths for serving static files
+    \item \textbf{Bootstrap 5} front end framework - For Styling \cite{Bootstrap}\\
+    \item \textbf{Math.random} - For random generation of food items on the grid \cite{Math1}\\
+    \item \textbf{Math.floor} - For random selection of coordinates as well as random selection of fruits \cite{Math2}\\
+    \item \textbf{Flask} - Provides web server and routing capabilities \cite{Flask1} \cite{Flask2}\\
+    \item \textbf{datetime} - Formats dates for the history.txt log\\
+    \item \textbf{os} - Handles directory paths for serving static files\\
 \end{itemize}
  
 \section{Description of all features implemented}
@@ -50,17 +50,17 @@
 \subsection{Gameplay}
 
 \begin{itemize}[leftmargin=1.5em]
-    \item Welcome modal on starting game with start button and game information and asks for username which if not entered leads to display of alert message. (\ref{fig:start})
-    \item Storing snake as an array of pairs of coordinates.
-    \item Taking keyboard input to change position of head and popping last element of array.
-    \item Storing food items as array of pairs of coordinates.
-    \item Every 200ms, the boxes corresponding to coordinates of snake and foods are colored.(\ref{fig:play})
-    \item Snake dies when the coordinates of head either coincide with another element of snake array or when it leaves the grid.
-    \item 5 different types of fruits that the snake can feed on. One food item instantly appears when the previous is eaten.
-    \item Incrasing length by retaining last "food.value" number of elements in snake array.
-    \item Setting a 10s immunity timer in which the snake does not die on either hitting the wall or itself.
-    \item Setting a 10s speed up by reducing the time interval between successive renderings of the board.
-    \item Displays game-play statistics of current session.(\ref{fig:over})
+    \item \textbf{Welcome modal} on starting game with start button and game information (simple styling with basic properties like font-color,background-color,font style,size and alignment) and asks for username which if not entered leads to display of alert message(checking done after removing whitespaces in username). (\ref{fig:start})\\
+    \item Storing \textbf{snake} as an array of pairs of coordinates.(To keep track of position of snake body. Per move new element is added at start of snake array and last element is popped out, and remaining elements are kept unchanged)\\
+    \item Taking \textbf{keyboard input} is used to specify direction of motion of snake .(snake cannot reverse direction in one move).Head value gets updated (Keyboard inputs taken by event listeners)\\
+    \item Storing \textbf{food items} as array of pairs of coordinates.(Foods  of have variables like name,value,color,immunity,speed).\\
+    \item Every 200ms, the \textbf{boxes} corresponding to coordinates of snake and foods are \textbf{colored}.(So it appears that the snake is moving by seeing difference between succesive renderings)(\ref{fig:play})\\
+    \item \textbf{Snake dies} when the coordinates of head either coincide with another element of snake array or when it leaves the grid.(Head coordinates outside grid boundaries)\\
+    \item 5 different \textbf{types of fruits} that the snake can feed on.(Different properties of foods like immunity,length growth and speedup) One food item instantly appears when the previous is eaten.(Only one food at a time is displayed and it is selected randomly from food array. Generation position is also random).\\
+    \item \textbf{Increasing length} by adding a copy of last "food value" number of elements of snake array to the array, so when snake moves after next "food value" moves we can see those elements(growth of snake) that would otherwise have been popped out).  \\
+    \item Setting a 10s \textbf{immunity} timer in which the snake does not die on either hitting the wall or itself, if it has eaten a food that gives immunity.\\
+    \item Setting a 10s \textbf{speed up} by reducing the time interval between successive renderings of the game(board,snake,food) temporarily, if snake eats a food that gives speed up.(So the gap in which click has to be done is reduced and gameplay becomes faster)\\
+    \item Displays game-play \textbf{statistics} of current session(username,length of snake,duration of play,cause of death,session high score) on a \textbf{game-over modal} and updates session high score if needed.(\ref{fig:over})\\
 \end{itemize}
 \begin{figure}
     \begin{subfigure}[h]{0.4\textwidth}
@@ -78,18 +78,18 @@
 \subsection{Admin}
 
 \begin{itemize}[leftmargin=1.5em]
-    \item Checking for existence and emptiness of history.txt.
-    \item Display menu driven interface
-    \begin{itemize}
-        \item Viewing Recent games
-        \item Viewing analytics (Mean score/time)
-        \item Deleting entries by username
-        \item Log rotation in which history.txt is truncated to last 10 entries and backup is created in the form of .tar.gz file.
-        \item Sorting by username or score (\ref{fig:admin1})
-        \item Exit option
-    \end{itemize}
-    \item Handling invalid input and displaying error message.
-    \item Using ANSI escape codes for colored output.
+    \item \textbf{Checking history.txt} for existence/emptiness.\\
+    \item Display \textbf{menu driven interface} 
+    \begin{enumerate}
+        \item Viewing \textbf{recent games' data} (that present in history.txt) sorted by timestamp(most recent first).\\
+        \item Viewing \textbf{analytics} for games in history.txt.(Mean score, mean time, fraction of wall deaths, fraction of self deaths).\\
+        \item \textbf{Deleting entries} by username from history.txt\\
+        \item \textbf{Log rotation} in which history.txt is truncated to latest 10 entries and backup is created in the form of .tar.gz file.\\
+        \item \textbf{Sorting} by username or score(\ref{fig:admin1})\\
+        \item \textbf{Exit} option\\
+    \end{enumerate}
+    \item \textbf{Handling invalid input} and displaying error message. (Input format is defined in prompt wherever needed) \\
+    \item Using \textbf{ANSI escape codes} for colored/formatted output.(Wall deaths in blue, self deaths in red, error messages in bold)\\
     (\ref{fig:admin2})
 \end{itemize}
 \begin{figure}
@@ -111,7 +111,7 @@
     level 1/.style = {sibling distance=2 cm}, 
     every node/.style={font=\tiny}
 ]
-\node {SSL\_PROJECT\_25b1089-25b0949}
+\node {\textbf{SSL\_PROJECT\_25b1089-25b0949}}
     child { node {images} }
     child { node {static}}
     child {node {.gitignore}}
@@ -121,21 +121,19 @@
     child {node {project.bib}}
     child {node {report.pdf}}
     child {node {report.tex}};
-\end{tikzpicture}
-
+\end{tikzpicture}\\
 \begin{tikzpicture}[
     level 1/.style = {sibling distance=3 cm}]  
-\node {images} 
+\node {\textbf{images}} 
         child { node {admin1.png} }
         child { node {admin2.png} }
         child { node {over.png} }
         child {node {play.png} }
         child {node {start.png}};
-\end {tikzpicture}
-
+\end {tikzpicture}\\
 \begin{tikzpicture}[
     level 1/.style = {sibling distance=3 cm}]  
-\node {static}
+\node {\textbf{static}}
        child { node {api.js} }
         child { node {game.js} }
         child { node {index.html} }
@@ -147,35 +145,77 @@
 Also a Makefile exists in SSL\_PROJECT\_25b1089-25b0949\\
 
 \subsection{How layers communicate}
-At first, the user interacts with JavaScript front end framework. When the game ends, the front end sends the final score to Flask Server using fetch API. Request is POST with a JSON body. Inside app.py, the score is parsed, validated and appended to history.txt with timestamp. Managing history.txt and backup files by admin.sh. We have used bash commands like sed, awk, grep, cut, sort and case to create a menu driven interface with different options.
-
+\begin{itemize}
+\item At first, the user interacts with JavaScript front end framework. When the game ends, the front end sends the final score to Flask Server using fetch API. \\
+\item Request is POST with a JSON body. Inside app.py, the score is parsed, validated and appended to history.txt with timestamp. \\
+\item Managing history.txt and backup files is done by admin.sh. We have used bash commands like sed, awk, grep, cut, sort and case to create a menu driven interface with different options.\\
+\end{itemize}
 \subsection{Format for history.txt}
 
-[timestamp] name \textbar~score  cause  duration \\ Chosen because with this format, sorting becomes easier and since game data is space separated, it can be handled by awk.
+[timestamp] name \textbar~score  cause  duration \\ \\Chosen because with this format, sorting becomes easier and since game data is space separated, it can be handled by awk.
+
+\subsection{Important functions defined in various files}
+\subsubsection{ui.js}
+\begin{itemize}
+\item \textbf{init()}: For checking username\\
+\item \textbf{showGameOver(score,cause,duration)}: For showing Game Over modal.\\
+\end{itemize}
+\subsubsection{game.js}
+\begin{itemize}
+\item \textbf{init()}:Initializing snake,food and calling handleInput() (for keyboard input),draw() (initial grid) and setting interval for loop() (200 ms).\\
+\item \textbf{spawnFood()}:Defining food types and ensuring food generates where snake is not there.\\
+\item \textbf{loop()}:Updating position of snake head and checking if snake is dead(and cause of death).Calling speedUp() and startImmunity() if needed. Increasing snake length if needed. Calling draw() for rendering.\\
+\item \textbf{speedUp()}: Increasing snake speed for 10s by reducing the time between renderings.\\
+\item \textbf{startImmunity()}: Setting immunity timer for 10s.\\
+\item \textbf{draw()}: Drawing grid and displaying snake and fruits( by coloring corresponding positions).\\
+\item \textbf{handleInput()}:Updates direction of motion of snake as per keyboard commands(Arrow keys or WASD).\\
+\item \textbf{endGame(cause)}: Terminating running interval loops and calling showGameOver in ui.js, saveScore in api.js.\\
+
+\end{itemize}
+\subsubsection{api.js}
+\begin{itemize}
+    \item \textbf{saveScore(gameData)}:Sends score using fetch API\\
+\end{itemize}
+\subsubsection{app.py}
+\begin{itemize}
+    \item \textbf{index}: Serves frontend to the browser.\\
+    
+    \item \textbf{save\_score}: Validates received game data and appends it to history.txt in the decided format.\\
+\end{itemize}
+
 
 \section{Usage}
 \begin{itemize}
 \item Running game on server\\
+\begin{enumerate}
+    
+\item Type 'python3 app.py' on command line.\\ 
+\item Navigate to http://127.0.0.1:5000 on browser.\\
+\item Enter username and press Start Game.\\ 
+\item Can use arrow keys or WASD for snake motion.\\ 
+\item Press Play Again to restart if game over
 
-Type 'python3 app.py' on command line.\\ Navigate to http://127.0.0.1:5000 on browser.\\ Enter username and press Start Game.\\ Can use arrow keys or WASD for snake motion.\\ Press Play Again to restart if game over
+\end{enumerate}
 \item Running admin.sh \\
-
-Type 'bash admin.sh' on command line.\\ Navigate menu by entering number corresponding to required option.\\ Where valid, enter required suboptions out of those visible
+\begin{enumerate}
+\item Type 'bash admin.sh' on command line.\\ 
+\item Navigate menu by entering number corresponding to required option.\\ \item Where valid, enter required suboptions out of those visible
+\end{enumerate}
 \end{itemize}
 \section{Hurdles faced and how we overcame them}
 
 \begin{itemize}[leftmargin=1.5em]
-    \item Adjusting the display size of the grid and modal - By trial and error.
-    \item Adjusting timers for changing speed of snake and setting immunity - Disabling existing loop and setting timer for running a new loop temporarily.
-    \item Ensuring proper parsing and sorting of data in history.txt. For example, if username matches WALL or SELF - By using proper delimiters as per history.txt's format.
-    \item Ensuring that a fruit does not generate on snake's body - Keeping in mind that the randomly generated fruit appears on the grid excluding all the coordinates inside snake array.
+    \item Adjusting the display size of the grid and modal - By trial and error.\\
+    \item Adjusting timers for changing speed of snake and setting immunity - Disabling existing loop and setting timer for running a new loop temporarily.\\
+    \item Ensuring proper parsing and sorting of data in history.txt. For example, if username matches WALL or SELF - By using proper delimiters as per history.txt's format.\\
+    \item Ensuring that a fruit does not generate on snake's body - Keeping in mind that the randomly generated fruit appears on the grid excluding all the coordinates inside snake array.\\
 \end{itemize}
 
 \section{What we would do in 10 extra hours}
 
 \begin{itemize}[leftmargin=1.5em]
-    \item Improve the graphics of both the snake and fruits.
-    \item An option for the user to vary speed of snake, vary the types and numbers of fruits generated at a time.
+    \item Improve the graphics of both the snake and fruits.\\
+    \item An option for the user to vary speed of snake, vary the types and numbers of fruits generated at a time.\\
 \end{itemize}
 
 \bibliographystyle{plain}
