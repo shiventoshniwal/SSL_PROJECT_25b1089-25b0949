@@ -1,6 +1,8 @@
 .PHONY: all clean
 
-all:
+all: report.pdf
+
+report.pdf: report.tex project.bib $(wildcard images/*)
 	pdflatex report.tex
 	bibtex report
 	pdflatex report.tex
