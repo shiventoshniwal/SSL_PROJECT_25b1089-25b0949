@@ -153,11 +153,10 @@ const Game = {
                         ...this.snake[this.snake.length - 1]
                     });
                 }
-            } else {
-                // Special power foods do not increase snake length
-                this.snake.pop();
             }
-
+            else{
+                    this.snake.pop()
+            }
             // Remove consumed food
             this.foods.splice(foodIndex, 1);
 
